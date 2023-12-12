@@ -1,0 +1,3 @@
+.use kia karta hai ke agar complete path nahi milta to wo request ko "/" se chala deta hai kioke har request "/" se shru hoti hai.
+
+jab ke get and post waghera complete path check kartein hain
