@@ -1,0 +1,31 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+nav{
+    background-color: red;
+    padding: 10px 10px 10px 30px;
+}
+ul{
+    display: flex;
+    column-gap: 30px;
+}
+li{
+    list-style: none;
+    font-size: 30px;
+    
+}
+li a{
+    text-decoration: none;
+    color: white;
+}
+li a:hover{
+    color: #000;
+}
+main{
+    padding: 10px 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
