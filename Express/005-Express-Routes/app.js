@@ -1,19 +1,18 @@
 const express = require("express");
 const path = require("path");
 
-const dirPath = path.join(__dirname, "views", "404.html");
-console.log(dirPath);
-
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
-const bodyParser = require("body-parser");
+
+const dirPath = path.join(__dirname, "views", "404.html");
+
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/admin", adminRoutes);
+app.use(adminRoutes.routes);
 app.use(shopRoutes);
 
 app.get("/", (req, res, next) => {

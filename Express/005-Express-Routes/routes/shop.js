@@ -1,9 +1,13 @@
 const express = require("express");
+const data = require("./admin")
 const path = require("path");
 
-const dirPath = path.join(__dirname, "../" , "views", "shop.html")
+
+const dirPath = path.join(__dirname, "../" , "views", "home.html")
+const dirPath2 = path.join(__dirname, "../" , "views", "products.html")
 
 const router = express.Router();
+
 
 router.get("/", (req, res, next) => {
   // res.send("Hello Home");
@@ -11,7 +15,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.use("/products", (req, res, next) => {
-  res.send("Hello Products");
+  res.sendFile(dirPath2);
 });
 
 module.exports = router;
