@@ -1,13 +1,12 @@
 const registeredProducts = [];
 
-// export const NewProduct = (title, price) => {
-//   this.title = title;
-//   this.price = price;
-// };
+export const NewProduct = (title, price) => {
+  this.title = title;
+  this.price = price;
+};
 
 export const Save = (product) => {
-  console.log(product);
-  registeredProducts.push(product);
+  registeredProducts.unshift(product);
 };
 
 export const FetchAll = () => {

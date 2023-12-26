@@ -1,8 +1,8 @@
 // import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
-import Add from "./components/Add";
 import View from "./components/View";
+import Add from "./components/Admin/Add";
 
 function App() {
   return (
