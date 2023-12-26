@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { addUsersData } from "../hooks/useUserData";
+import { addProductsData } from "../hooks/useUserData";
 import { useNavigate } from "react-router-dom";
 
 const Add = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
-    name: "",
-    email: "",
+    productName: "",
+    productPrice: "",
   });
 
   const HandleChange = (event) => {
@@ -19,8 +19,8 @@ const Add = () => {
 
   const onSuccess = (data) => {
     setUserData({
-      name: "",
-      email: "",
+      productName: "",
+      productPrice: "",
     });
     alert(data);
   };
@@ -30,13 +30,13 @@ const Add = () => {
     isError: useMutationError,
     error: useMutationErrorMsg,
     isLoading: mutationLoading,
-  } = addUsersData(onSuccess);
+  } = addProductsData(onSuccess);
 
   const HandleSubmit = (e) => {
     e.preventDefault();
     mutate(userData);
     setTimeout(() => {
-      navigate("/all-users");
+      navigate("/all-products");
     }, 1500);
   };
 
@@ -52,28 +52,27 @@ const Add = () => {
       <h1>Add Product</h1>
       <form>
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">
-            Name
+          <label htmlFor="productName" className="form-label">
+            Product Name
           </label>
           <input
             type="text"
             className="form-control"
             onChange={HandleChange}
-            id="name"
-            name="name"
+            id="productName"
+            name="productName"
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">
-            Email address
+          <label htmlFor="productPrice" className="form-label">
+            Product price
           </label>
           <input
-            type="email"
+            type="number"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            name="email"
             onChange={HandleChange}
+            id="productPrice"
+            name="productPrice"
           />
         </div>
         <button onClick={HandleSubmit} className="btn btn-primary">

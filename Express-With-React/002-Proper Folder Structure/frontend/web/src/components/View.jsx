@@ -18,22 +18,22 @@ const View = () => {
 
   return (
     <>
-      <h1>All Users</h1>
+      <h1>All Products</h1>
       <br />
       <table className="table table-dark table-striped">
         <thead>
           <tr>
             <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Price</th>
           </tr>
         </thead>
         <tbody>
-          {data?.data?.map((eachuser,index) => (
+          {data?.data?.map((eachItem,index) => (
             <tr key={index}>
-              <th scope="row">{eachuser?.id}</th>
-              <td>{eachuser?.name}</td>
-              <td>{eachuser?.email}</td>
+              <th scope="row">{eachItem?.id}</th>
+              <td>{eachItem?.productName}</td>
+              <td>{eachItem?.productPrice}</td>
             </tr>
           ))}
         </tbody>

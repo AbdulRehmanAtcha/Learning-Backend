@@ -1,10 +1,10 @@
 import express from "express";
-import { registeredUsers } from "./admin.js";
+import { registeredProducts } from "./admin.js";
 
 const router = express.Router();
 
-router.get("/all-users", (req, res) => {
-  res.send(registeredUsers);
+router.get("/all-products", (req, res) => {
+  res.send(registeredProducts);
 });
 
 
