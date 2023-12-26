@@ -37,7 +37,7 @@ const Add = () => {
     mutate(userData);
     setTimeout(() => {
       navigate("/all-products");
-    }, 1500);
+    }, 1200);
   };
 
   if (mutationLoading) {

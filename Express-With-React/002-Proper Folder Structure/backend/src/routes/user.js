@@ -1,11 +1,10 @@
 import express from "express";
-import { registeredProducts } from "./admin.js";
+// import { registeredProducts } from "./admin.js";
+import { GetAllProducts } from "../controllers/productController.js";
 
 const router = express.Router();
 
-router.get("/all-products", (req, res) => {
-  res.send(registeredProducts);
-});
+router.get("/all-products", GetAllProducts);
 
 
 

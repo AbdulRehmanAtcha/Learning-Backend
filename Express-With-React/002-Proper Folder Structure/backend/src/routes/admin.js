@@ -1,34 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
+import { AddProduct } from "../controllers/productController.js";
 
 export const adminRoutes = express.Router();
 
 adminRoutes.use(bodyParser.json());
 adminRoutes.use(bodyParser.urlencoded({ extended: true }));
 
-export const registeredProducts = [
-  // {
-  //   id: "4n5pxq24kriob12ogd",
-  //   name: "Abdul Rehman",
-  //   email: "abdul@gmail.com",
-  // },
-  // {
-  //   id: "4n5pxq24ksiob12ogl",
-  //   name: "Muhammad Yahya",
-  //   email: "yahya@gmail.com",
-  // },
-];
+export const registeredProducts = [];
 
-adminRoutes.post("/add-product", (req, res) => {
-  const body = req.body;
-  console.log(body);
-  try {
-    registeredProducts.push(body);
-    res.json({ message: "Data received successfully" });
-  } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-
-
+adminRoutes.post("/add-product", AddProduct);
