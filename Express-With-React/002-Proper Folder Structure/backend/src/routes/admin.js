@@ -7,6 +7,6 @@ export const adminRoutes = express.Router();
 adminRoutes.use(bodyParser.json());
 adminRoutes.use(bodyParser.urlencoded({ extended: true }));
 
-export const registeredProducts = [];
+// export const registeredProducts = [];
 
 adminRoutes.post("/add-product", AddProduct);
