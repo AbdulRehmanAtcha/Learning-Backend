@@ -7,7 +7,10 @@ const baseURL = "http://localhost:3000";
 const FetchData = async () => {
   return await axios.get(`${baseURL}/api/v1/all-products`);
 };
-
+// /product/:id
+const FetchById = async (id) => {
+  return await axios.get(`${baseURL}/api/v1/product/${id}`);
+};
 
 const AddUser = async (user) => {
   const userId = uniqid();
@@ -20,6 +23,10 @@ const AddUser = async (user) => {
 
 export const FetchingQuery = () => {
   return useQuery("products", FetchData);
+};
+
+export const FetchingQueryById = (id) => {
+  return useQuery(["product", id], () => FetchById(id));
 };
 
 export const addProductsData = (onSuccess) => {

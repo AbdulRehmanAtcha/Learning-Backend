@@ -12,3 +12,8 @@ export const Save = (product) => {
 export const FetchAll = () => {
   return registeredProducts;
 };
+
+export const SingleProduct = (id) => {
+  const FetchProduct = registeredProducts.filter((item) => item.id === id);
+  return FetchProduct;
+};

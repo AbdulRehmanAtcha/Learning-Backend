@@ -1,9 +1,14 @@
-
-import { FetchAll, Save } from "../models/product.js";
+import { FetchAll, Save, SingleProduct } from "../models/product.js";
 
 const GetAllProducts = (req, res) => {
   const products = FetchAll();
   res.send(products);
+};
+
+const GetById = (req, res) => {
+  const prodId = req.params.id;
+  const result = SingleProduct(prodId);
+  res.send(result);
 };
 
 const AddProduct = (req, res) => {
@@ -16,4 +21,4 @@ const AddProduct = (req, res) => {
   }
 };
 
-export { GetAllProducts, AddProduct };
+export { GetAllProducts, AddProduct, GetById };
