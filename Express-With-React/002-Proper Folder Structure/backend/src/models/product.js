@@ -10,8 +10,8 @@ export const Save = (product) => {
   registeredProducts.unshift(product);
 };
 export const SaveToCart = (product) => {
-  cart.unshift(product);
-  console.log(cart);
+  cart.unshift(product[0]);
+  console.log(cart)
 };
 
 export const FetchAll = () => {

@@ -29,7 +29,7 @@ const AddProduct = (req, res) => {
 const AddProductCart = (req, res) => {
   const body = req.body;
   try {
-    SaveToCart(body);
+    SaveToCart(body.product);
     res.json({ message: "Product Added To Cart" });
   } catch (err) {
     res.status(500).json({ error: "Internal Server Error" });
