@@ -1,4 +1,9 @@
-import { FetchAll, Save, SingleProduct } from "../models/product.js";
+import {
+  FetchAll,
+  Save,
+  SaveToCart,
+  SingleProduct,
+} from "../models/product.js";
 
 const GetAllProducts = (req, res) => {
   const products = FetchAll();
@@ -21,4 +26,14 @@ const AddProduct = (req, res) => {
   }
 };
 
-export { GetAllProducts, AddProduct, GetById };
+const AddProductCart = (req, res) => {
+  const body = req.body;
+  try {
+    SaveToCart(body);
+    res.json({ message: "Product Added To Cart" });
+  } catch (err) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export { GetAllProducts, AddProduct, GetById, AddProductCart };

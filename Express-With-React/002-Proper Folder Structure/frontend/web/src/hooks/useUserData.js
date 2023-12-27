@@ -21,6 +21,12 @@ const AddUser = async (user) => {
   });
 };
 
+const AddProduct = async (product) => {
+  return await axios.post(`${baseURL}/admin/addToCart`, {
+    product,
+  });
+};
+
 export const FetchingQuery = () => {
   return useQuery("products", FetchData);
 };
@@ -38,3 +44,14 @@ export const addProductsData = (onSuccess) => {
     },
   });
 };
+
+
+export const addProductToCart = (onSuccess)=>{
+  return useMutation(AddProduct,{
+    onSuccess:(data)=>{
+      if(onSuccess){
+        onSuccess(data?.data?.message)
+      }
+    }
+  })
+}
