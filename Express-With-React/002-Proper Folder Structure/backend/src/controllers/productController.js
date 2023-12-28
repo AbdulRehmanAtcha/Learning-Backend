@@ -1,5 +1,6 @@
 import { SaveToCart, SendCartItems } from "../models/cart.js";
 import {
+  EditProductHandler,
   FetchAll,
   Save,
   SingleProduct,
@@ -45,4 +46,23 @@ const GettingCartItems = (req, res) => {
   }
 };
 
-export { GetAllProducts, AddProduct, GetById, AddProductCart,GettingCartItems };
+const EditProductController = (req, res) => {
+  const body = req.body;
+  try {
+    const result = EditProductHandler(body);
+    if (result === "Edited") {
+      res.status(200).json({ message: "Product Edited Successfully" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export {
+  GetAllProducts,
+  AddProduct,
+  GetById,
+  AddProductCart,
+  GettingCartItems,
+  EditProductController,
+};

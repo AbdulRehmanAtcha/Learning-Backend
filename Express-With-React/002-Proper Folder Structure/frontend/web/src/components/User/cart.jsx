@@ -17,11 +17,10 @@ const MyCart = () => {
   if (querError) {
     <h1>{queryErrorMsg}</h1>;
   }
-  console.log(data?.data);
   return (
     <>
       <br />
-      {data?.data.length <= 0 ? (
+      {data?.data?.cart?.length <= 0 ? (
         <div
           style={{
             height: "60vh",
@@ -35,7 +34,8 @@ const MyCart = () => {
         </div>
       ) : (
         <>
-          <h1>Your Cart</h1>
+          <h1>Price: {data?.data?.price}</h1>
+          <h1>Items: {data?.data?.items}</h1>
           <br />
           <br />
           <br />
@@ -57,6 +57,7 @@ const MyCart = () => {
             </button>
           </div>
 
+          <h1>Items in Your Cart</h1>
           <table className="table table-dark table-striped">
             <thead>
               <tr>
@@ -66,7 +67,7 @@ const MyCart = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.data?.map((eachItem, index) => (
+              {data?.data?.cart?.map((eachItem, index) => (
                 <tr key={index}>
                   <th scope="row">{eachItem?.id}</th>
                   <td>{eachItem?.productName}</td>

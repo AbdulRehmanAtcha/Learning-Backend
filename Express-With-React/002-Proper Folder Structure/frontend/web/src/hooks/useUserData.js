@@ -31,6 +31,10 @@ const AddProduct = async (product) => {
   });
 };
 
+const EditProduct = async (product) => {
+  return await axios.post(`${baseURL}/admin/edit-product`, { product });
+};
+
 export const FetchingQuery = () => {
   return useQuery("products", FetchData);
 };
@@ -49,10 +53,19 @@ export const addProductsData = (onSuccess) => {
   });
 };
 
+export const editProductData = (onSuccess) => {
+  return useMutation(EditProduct, {
+    onSuccess: (data) => {
+      if (onSuccess) {
+        onSuccess(data?.data);
+      }
+    },
+  });
+};
 
-export const FetchingQueryCartItems = ()=>{
-  return useQuery("cartItems",FetchCartItems)
-}
+export const FetchingQueryCartItems = () => {
+  return useQuery("cartItems", FetchCartItems);
+};
 
 export const addProductToCart = (onSuccess) => {
   return useMutation(AddProduct, {
