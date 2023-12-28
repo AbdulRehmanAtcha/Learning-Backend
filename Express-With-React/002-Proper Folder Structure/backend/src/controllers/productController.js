@@ -1,8 +1,7 @@
+import { SaveToCart, SendCartItems } from "../models/cart.js";
 import {
   FetchAll,
   Save,
-  SaveToCart,
-  SendCartItems,
   SingleProduct,
 } from "../models/product.js";
 

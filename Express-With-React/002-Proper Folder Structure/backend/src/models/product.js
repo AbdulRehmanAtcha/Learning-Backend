@@ -1,5 +1,4 @@
 const registeredProducts = [];
-const cart = [];
 
 export const NewProduct = (title, price) => {
   this.title = title;
@@ -9,14 +8,9 @@ export const NewProduct = (title, price) => {
 export const Save = (product) => {
   registeredProducts.unshift(product);
 };
-export const SaveToCart = (product) => {
-  cart.unshift(product[0]);
-  console.log(cart);
-};
 
-export const SendCartItems = () => {
-  return cart;
-};
+
+
 
 export const FetchAll = () => {
   return registeredProducts;
