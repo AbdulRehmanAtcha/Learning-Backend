@@ -1,12 +1,14 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FetchingQueryById, addProductToCart } from "../../hooks/useUserData";
 
 const Details = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const onSuccess = (data) => {
-    alert(data);
+    // alert(data);
+    navigate("/cart")
   };
 
   const {

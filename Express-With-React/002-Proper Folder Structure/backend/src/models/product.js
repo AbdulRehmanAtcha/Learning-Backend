@@ -11,7 +11,11 @@ export const Save = (product) => {
 };
 export const SaveToCart = (product) => {
   cart.unshift(product[0]);
-  console.log(cart)
+  console.log(cart);
+};
+
+export const SendCartItems = () => {
+  return cart;
 };
 
 export const FetchAll = () => {

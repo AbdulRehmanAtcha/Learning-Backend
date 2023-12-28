@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import View from "./components/View";
 import Add from "./components/Admin/Add";
 import AdminView from "./components/Admin/AdminView";
-import Cart from "./components/User/cart";
+import MyCart from "./components/User/Cart";
 import Details from "./components/User/Details";
 
 function App() {
@@ -37,7 +37,7 @@ function App() {
         <Route path="/all-products" element={<View />} />
         <Route path="/admin-products" element={<AdminView />} />
         <Route path="/admin-products" element={<AdminView />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<MyCart />} />
         <Route path='/product-details/:id' element={<Details />} />
       </Routes>
     </>

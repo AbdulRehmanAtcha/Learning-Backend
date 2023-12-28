@@ -12,6 +12,10 @@ const FetchById = async (id) => {
   return await axios.get(`${baseURL}/api/v1/product/${id}`);
 };
 
+const FetchCartItems = async () => {
+  return await axios.get(`${baseURL}/api/v1/cartItems`);
+};
+
 const AddUser = async (user) => {
   const userId = uniqid();
 
@@ -22,11 +26,9 @@ const AddUser = async (user) => {
 };
 
 const AddProduct = async (product) => {
-  
   return await axios.post(`${baseURL}/api/v1/addToCart`, {
     product,
   });
-  
 };
 
 export const FetchingQuery = () => {
@@ -46,6 +48,11 @@ export const addProductsData = (onSuccess) => {
     },
   });
 };
+
+
+export const FetchingQueryCartItems = ()=>{
+  return useQuery("cartItems",FetchCartItems)
+}
 
 export const addProductToCart = (onSuccess) => {
   return useMutation(AddProduct, {

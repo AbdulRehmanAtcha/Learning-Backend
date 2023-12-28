@@ -2,6 +2,7 @@ import {
   FetchAll,
   Save,
   SaveToCart,
+  SendCartItems,
   SingleProduct,
 } from "../models/product.js";
 
@@ -36,4 +37,13 @@ const AddProductCart = (req, res) => {
   }
 };
 
-export { GetAllProducts, AddProduct, GetById, AddProductCart };
+const GettingCartItems = (req, res) => {
+  try {
+    const result = SendCartItems();
+    res.send(result);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export { GetAllProducts, AddProduct, GetById, AddProductCart,GettingCartItems };
