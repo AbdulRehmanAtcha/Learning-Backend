@@ -1,4 +1,4 @@
-const cart = [];
+let cart = [];
 let price = 0;
 let items = 0;
 export const SaveToCart = (product) => {
@@ -14,4 +14,23 @@ export const SaveToCart = (product) => {
 
 export const SendCartItems = () => {
   return { cart, price, items };
+};
+
+export const DeleteCartItem = (product) => {
+  const filter = cart.findIndex((item) => item.id === product.id);
+  if (filter === -1) {
+    return "No Product Found";
+  } else {
+    if (cart.length === 1) {
+      items = 0;
+      price = 0;
+      cart.splice(filter, 1);
+      return { cart, price, items };
+    } else {
+      items--;
+      price = price - product.productPrice;
+      cart.splice(filter, 1);
+      return { cart, price, items };
+    }
+  }
 };

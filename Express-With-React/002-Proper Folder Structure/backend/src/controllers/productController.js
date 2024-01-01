@@ -1,5 +1,6 @@
-import { SaveToCart, SendCartItems } from "../models/cart.js";
+import { DeleteCartItem, SaveToCart, SendCartItems } from "../models/cart.js";
 import {
+  DeleteProductHandler,
   EditProductHandler,
   FetchAll,
   Save,
@@ -46,6 +47,16 @@ const GettingCartItems = (req, res) => {
   }
 };
 
+const DeleteCartItemController = (req, res) => {
+  const body = req.body;
+  const result = DeleteCartItem(body);
+  try {
+    res.send(result);
+  } catch (err) {
+    res.json({ message: "Internal Server Error" });
+  }
+};
+
 const EditProductController = (req, res) => {
   const body = req.body;
   try {
@@ -58,6 +69,21 @@ const EditProductController = (req, res) => {
   }
 };
 
+const DeleteProductController = (req, res) => {
+  const body = req.body;
+  try {
+    const result = DeleteProductHandler(body);
+    if (result === "No Product Found") {
+      res.json({ message: result });
+      return;
+    } else {
+      res.send(result);
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 export {
   GetAllProducts,
   AddProduct,
@@ -65,4 +91,6 @@ export {
   AddProductCart,
   GettingCartItems,
   EditProductController,
+  DeleteProductController,
+  DeleteCartItemController,
 };

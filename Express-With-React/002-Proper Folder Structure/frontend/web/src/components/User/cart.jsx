@@ -1,5 +1,8 @@
 import React from "react";
-import { FetchingQueryCartItems } from "../../hooks/useUserData";
+import {
+  DeleteCartMutation,
+  FetchingQueryCartItems,
+} from "../../hooks/useUserData";
 import { useNavigate } from "react-router-dom";
 
 const MyCart = () => {
@@ -9,7 +12,15 @@ const MyCart = () => {
     isError: querError,
     isLoading: querLoading,
     error: queryErrorMsg,
+    refetch,
   } = FetchingQueryCartItems();
+  console.log(data);
+
+  const onSuccess = () => {
+    refetch();
+  };
+
+  const { mutate } = DeleteCartMutation(onSuccess);
 
   if (querLoading) {
     <h1>Loading...</h1>;
@@ -64,6 +75,7 @@ const MyCart = () => {
                 <th scope="col">Id</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Product Price</th>
+                <th scope="col">Delete Product</th>
               </tr>
             </thead>
             <tbody>
@@ -72,6 +84,15 @@ const MyCart = () => {
                   <th scope="row">{eachItem?.id}</th>
                   <td>{eachItem?.productName}</td>
                   <td>{eachItem?.productPrice}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() => mutate(eachItem)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

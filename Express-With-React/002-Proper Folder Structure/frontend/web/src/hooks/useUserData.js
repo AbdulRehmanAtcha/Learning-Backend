@@ -25,6 +25,14 @@ const AddUser = async (user) => {
   });
 };
 
+const DeleteProductFunc = async (product) => {
+  return await axios.post(`${baseURL}/admin/delete-product`, product);
+};
+
+const DeleteCartItemFunc = async (product) => {
+  return await axios.post(`${baseURL}/api/v1/delete-cart-item`, product);
+};
+
 const AddProduct = async (product) => {
   return await axios.post(`${baseURL}/api/v1/addToCart`, {
     product,
@@ -72,6 +80,26 @@ export const addProductToCart = (onSuccess) => {
     onSuccess: (data) => {
       if (onSuccess) {
         onSuccess(data?.data?.message);
+      }
+    },
+  });
+};
+
+export const DeleteMutation = (onSuccess) => {
+  return useMutation(DeleteProductFunc, {
+    onSuccess: (data) => {
+      if (onSuccess) {
+        onSuccess(data?.data);
+      }
+    },
+  });
+};
+
+export const DeleteCartMutation = (onSuccess) => {
+  return useMutation(DeleteCartItemFunc, {
+    onSuccess: (data) => {
+      if (onSuccess) {
+        onSuccess(data?.data);
       }
     },
   });

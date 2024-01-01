@@ -23,7 +23,19 @@ export const EditProductHandler = (product) => {
     if (registeredProducts[i].id === product.product.data[0].id) {
       registeredProducts[i].productName = product.product.data[0].productName;
       registeredProducts[i].productPrice = product.product.data[0].productPrice;
-      return("Edited");
+      return "Edited";
     }
+  }
+};
+
+export const DeleteProductHandler = (product) => {
+  const filteringData = registeredProducts.findIndex(
+    (item) => item.id === product.id
+  );
+  if (filteringData === -1) {
+    return "No Product Found";
+  } else {
+    registeredProducts.splice(filteringData, 1);
+    return registeredProducts;
   }
 };

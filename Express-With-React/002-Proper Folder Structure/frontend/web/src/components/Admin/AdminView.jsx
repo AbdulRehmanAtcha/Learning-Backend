@@ -1,5 +1,5 @@
 import React from "react";
-import { FetchingQuery } from "../../hooks/useUserData";
+import { DeleteMutation, FetchingQuery } from "../../hooks/useUserData";
 import { Link } from "react-router-dom";
 
 const AdminView = () => {
@@ -8,13 +8,32 @@ const AdminView = () => {
     isError: querError,
     isLoading: querLoading,
     error: queryErrorMsg,
+    refetch,
   } = FetchingQuery();
+
+  const onSuccess = () => {
+    alert("Delted")
+    refetch();
+  };
+
+  const {
+    mutate,
+    isError: mutateError,
+    isLoading: mutateLoading,
+    error: mutateErrorMsg,
+    data: mutateData,
+  } = DeleteMutation(onSuccess);
+
   if (querError) {
     return <h1>{queryErrorMsg?.message}</h1>;
   }
   if (querLoading) {
     return <h1>Loadingg....</h1>;
   }
+
+  const HandleDelete = (data) => {
+    mutate(data);
+  };
   return (
     <>
       <br />
@@ -39,7 +58,8 @@ const AdminView = () => {
                 <th scope="col">Id</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Product Price</th>
-                <th scope="col">Details</th>
+                <th scope="col">Edit Option</th>
+                <th scope="col">Delete Option</th>
               </tr>
             </thead>
             <tbody>
@@ -54,6 +74,15 @@ const AdminView = () => {
                         Edit
                       </button>
                     </Link>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() => HandleDelete(eachItem)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
