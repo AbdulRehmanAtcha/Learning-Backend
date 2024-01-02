@@ -7,9 +7,9 @@ import {
   SingleProduct,
 } from "../models/product.js";
 
-const GetAllProducts = (req, res) => {
-  const products = FetchAll();
-  res.send(products);
+const GetAllProducts = async(req, res) => {
+  const products = await FetchAll();
+  res.json({ result: products });
 };
 
 const GetById = (req, res) => {

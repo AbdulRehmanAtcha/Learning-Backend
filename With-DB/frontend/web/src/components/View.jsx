@@ -20,7 +20,7 @@ const View = () => {
   return (
     <>
       <br />
-      {data?.data.length <= 0 ? (
+      {data?.data?.result.length <= 0 ? (
         <div
           style={{
             height: "60vh",
@@ -45,11 +45,11 @@ const View = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.data?.map((eachItem, index) => (
+              {data?.data?.result.map((eachItem, index) => (
                 <tr key={index}>
-                  <th scope="row">{eachItem?.id}</th>
-                  <td>{eachItem?.productName}</td>
-                  <td>{eachItem?.productPrice}</td>
+                  <th scope="row">{eachItem?._id}</th>
+                  <td>{eachItem?.title}</td>
+                  <td>{eachItem?.price}</td>
                   <td>
                     <Link to={`/product-details/${eachItem?.id}`}>
                       <button type="button" className="btn btn-success">
