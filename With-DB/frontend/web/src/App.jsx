@@ -7,6 +7,7 @@ import AdminView from "./components/Admin/AdminView";
 import MyCart from "./components/User/Cart";
 import Details from "./components/User/Details";
 import Edit from "./components/Admin/Edit";
+import Register from "./components/User/Register";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/add" element={<Add />} />
         <Route path="/all-products" element={<View />} />
         <Route path="/admin-products" element={<AdminView />} />

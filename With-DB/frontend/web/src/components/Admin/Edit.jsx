@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FetchingQueryById, editProductData } from "../../hooks/useUserData";
+import { FetchingQueryById, editProductData } from "../../hooks/useProductData";
 
 const Edit = () => {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FetchingQueryById, addProductToCart } from "../../hooks/useUserData";
+import { FetchingQueryById, addProductToCart } from "../../hooks/useProductData";
 
 const Details = () => {
   const { id } = useParams();

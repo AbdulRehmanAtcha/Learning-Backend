@@ -2,7 +2,7 @@ import React from "react";
 import {
   DeleteCartMutation,
   FetchingQueryCartItems,
-} from "../../hooks/useUserData";
+} from "../../hooks/useProductData";
 import { useNavigate } from "react-router-dom";
 
 const MyCart = () => {

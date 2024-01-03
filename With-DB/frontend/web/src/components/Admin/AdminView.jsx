@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { DeleteMutation, FetchingQuery } from "../../hooks/useUserData";
+import { DeleteMutation, FetchingQuery } from "../../hooks/useProductData";
 import { Link } from "react-router-dom";
 
 const AdminView = () => {

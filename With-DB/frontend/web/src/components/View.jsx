@@ -1,5 +1,5 @@
 import React from "react";
-import { FetchingQuery } from "../hooks/useUserData";
+import { FetchingQuery } from "../hooks/useProductData";
 import { Link } from "react-router-dom";
 
 const View = () => {
