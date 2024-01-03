@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DeleteMutation, FetchingQuery } from "../../hooks/useUserData";
 import { Link } from "react-router-dom";
 
@@ -69,7 +69,7 @@ const AdminView = () => {
                   <td>{eachItem?.title}</td>
                   <td>{eachItem?.price}</td>
                   <td>
-                    <Link to={`/edit-product/${eachItem?.id}`}>
+                    <Link to={`/edit-product/${eachItem?._id}`}>
                       <button type="button" className="btn btn-success">
                         Edit
                       </button>

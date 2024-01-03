@@ -7,14 +7,14 @@ import {
   SingleProduct,
 } from "../models/product.js";
 
-const GetAllProducts = async(req, res) => {
+const GetAllProducts = async (req, res) => {
   const products = await FetchAll();
   res.json({ result: products });
 };
 
-const GetById = (req, res) => {
+const GetById = async (req, res) => {
   const prodId = req.params.id;
-  const result = SingleProduct(prodId);
+  const result = await SingleProduct(prodId);
   res.send(result);
 };
 
@@ -57,31 +57,44 @@ const DeleteCartItemController = (req, res) => {
   }
 };
 
-const EditProductController = (req, res) => {
+const EditProductController = async (req, res) => {
   const body = req.body;
-  try {
-    const result = EditProductHandler(body);
-    if (result === "Edited") {
-      res.status(200).json({ message: "Product Edited Successfully" });
-    }
-  } catch (error) {
+  const result = await EditProductHandler(body);
+  if (result === 1) {
+    res.status(200).json({ message: "Product Edited Successfully" });
+    return;
+  } else if (result < 0) {
+    res.status(200).json({ message: "No product found" });
+  } else {
     res.status(500).json({ error: "Internal Server Error" });
   }
+  // try {
+  //   if (result === "Edited") {
+  //   }
+  // } catch (error) {
+  // }
 };
 
-const DeleteProductController = (req, res) => {
+const DeleteProductController = async (req, res) => {
   const body = req.body;
-  try {
-    const result = DeleteProductHandler(body);
-    if (result === "No Product Found") {
-      res.json({ message: result });
-      return;
-    } else {
-      res.send(result);
-    }
-  } catch (err) {
-    res.status(500).json({ message: "Internal Server Error" });
+  const result = await DeleteProductHandler(body);
+  if (result === 1) {
+    res.status(200).json({ message: "Product Deleted Successfully" });
+  } else if (result === 0) {
+    res.status(200).json({ message: "No Product Found" });
+  } else {
+    res.status(500).json({ error: "Internal Server Error" });
   }
+  // try {
+  //   if (result === "No Product Found") {
+  //     res.json({ message: result });
+  //     return;
+  //   } else {
+  //     res.send(result);
+  //   }
+  // } catch (err) {
+  //   res.status(500).json({ message: "Internal Server Error" });
+  // }
 };
 
 export {

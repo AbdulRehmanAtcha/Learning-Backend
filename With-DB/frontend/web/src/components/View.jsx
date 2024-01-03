@@ -51,7 +51,7 @@ const View = () => {
                   <td>{eachItem?.title}</td>
                   <td>{eachItem?.price}</td>
                   <td>
-                    <Link to={`/product-details/${eachItem?.id}`}>
+                    <Link to={`/product-details/${eachItem?._id}`}>
                       <button type="button" className="btn btn-success">
                         Details
                       </button>

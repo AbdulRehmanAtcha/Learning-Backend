@@ -4,11 +4,12 @@ import { FetchingQueryById, addProductToCart } from "../../hooks/useUserData";
 
 const Details = () => {
   const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
 
   const onSuccess = (data) => {
     // alert(data);
-    navigate("/cart")
+    navigate("/cart");
   };
 
   const {
@@ -25,12 +26,14 @@ const Details = () => {
     error: queryErrorMsg,
   } = FetchingQueryById(id);
 
-  if (querLoading || mutationLoading) {
-    return <h2>Loading</h2>;
-  }
-  if (querError || useMutationError) {
-    return <h1>{queryErrorMsg}</h1>;
-  }
+  console.log(data?.data);
+
+  // if (querLoading || mutationLoading) {
+  //   return <h2>Loading</h2>;
+  // }
+  // if (querError || useMutationError) {
+  //   return <h1>{queryErrorMsg}</h1>;
+  // }
 
   const HandleMutate = (data) => {
     mutate(data);
@@ -53,9 +56,9 @@ const Details = () => {
             </thead>
             <tbody>
               <tr>
-                <th scope="row">{data?.data[0].id}</th>
-                <td>{data?.data[0].productName}</td>
-                <td>{data?.data[0].productPrice}</td>
+                <th scope="row">{data?.data[0]._id}</th>
+                <td>{data?.data[0].title}</td>
+                <td>{data?.data[0].price}</td>
                 <td>
                   <button
                     type="button"

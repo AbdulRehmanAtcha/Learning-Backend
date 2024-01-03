@@ -31,7 +31,9 @@ const Edit = () => {
   };
 
   const onSuccess = (data) => {
-    navigate("/admin-products");
+    if (data.message) {
+      navigate("/admin-products");
+    }
   };
 
   const {
@@ -45,6 +47,7 @@ const Edit = () => {
     isError: mutateError,
     isLoading: mutateLoading,
     error: mutateErrorMsg,
+    data: mutateData,
   } = editProductData(onSuccess);
 
   if (querLoading || mutateLoading) {
@@ -98,7 +101,9 @@ const Edit = () => {
             </button>
           </form>
         </div>
-      ) : navigate("/all-products")}
+      ) : (
+        navigate("/all-products")
+      )}
     </>
   );
 };

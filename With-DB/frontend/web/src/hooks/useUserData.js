@@ -44,7 +44,7 @@ const EditProduct = async (product) => {
 };
 
 export const FetchingQuery = () => {
-  return useQuery("products", FetchData, { staleTime: 20000 });
+  return useQuery("products", FetchData);
 };
 
 export const FetchingQueryById = (id) => {
