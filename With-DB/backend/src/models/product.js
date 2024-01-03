@@ -83,7 +83,6 @@ export const EditProductHandler = async (product) => {
 };
 
 export const DeleteProductHandler = async (product) => {
-  console.log(product, "DELETE");
   try {
     const DeleteProduct = await productModel.deleteOne({ _id: product._id });
     if (DeleteProduct.deletedCount === 1) {
