@@ -2,13 +2,22 @@ let cart = [];
 let price = 0;
 let items = 0;
 export const SaveToCart = (product) => {
-  price = price + Number(product[0].productPrice);
-  let fetchProduct = cart.find((item) => item.id === product[0].id);
-  if (fetchProduct) {
-    items = items + 1;
+  const newCartProduct = {
+    _id: product["0"]._id,
+    name: product["0"].title,
+    price: product["0"].price,
+    quantity: product.quantity,
+  };
+  price = price + newCartProduct.price;
+  const FindProduct = cart.findIndex((item) => item._id === newCartProduct._id);
+  if (FindProduct !== -1) {
+    items++;
+    cart[FindProduct].quantity += 1;
+    return { message: "Product Addded", cart, items, price };
   } else {
-    items = items + 1;
-    cart.unshift(product[0]);
+    cart.unshift(newCartProduct);
+    items++;
+    return { message: "Product Addded", cart, items, price };
   }
 };
 
@@ -17,20 +26,21 @@ export const SendCartItems = () => {
 };
 
 export const DeleteCartItem = (product) => {
-  const filter = cart.findIndex((item) => item.id === product.id);
-  if (filter === -1) {
-    return "No Product Found";
-  } else {
-    if (cart.length === 1) {
-      items = 0;
-      price = 0;
-      cart.splice(filter, 1);
-      return { cart, price, items };
-    } else {
+  const FindProduct = cart.findIndex((item) => item._id === product._id);
+  if (FindProduct !== -1) {
+    if (cart[FindProduct]?.quantity === 1) {
+      price = price - cart[FindProduct].price;
       items--;
-      price = price - product.productPrice;
-      cart.splice(filter, 1);
-      return { cart, price, items };
+      cart.splice(FindProduct, 1);
+      return cart;
+    } else {
+      price = price - cart[FindProduct].price;
+      items--;
+      cart[FindProduct].quantity = cart[FindProduct].quantity - 1;
+      return cart;
     }
+  } else {
+    return "Can't Delete";
   }
 };
+

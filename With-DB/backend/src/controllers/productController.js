@@ -30,9 +30,13 @@ const AddProduct = (req, res) => {
 
 const AddProductCart = (req, res) => {
   const body = req.body;
+  const result = SaveToCart(body);
   try {
-    SaveToCart(body.product);
-    res.json({ message: "Product Added To Cart" });
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      res.json({ message: "Not Added" });
+    }
   } catch (err) {
     res.status(500).json({ error: "Internal Server Error" });
   }
@@ -51,7 +55,7 @@ const DeleteCartItemController = (req, res) => {
   const body = req.body;
   const result = DeleteCartItem(body);
   try {
-    res.send(result);
+    res.json({ result, message: "Product Deleted" });
   } catch (err) {
     res.json({ message: "Internal Server Error" });
   }

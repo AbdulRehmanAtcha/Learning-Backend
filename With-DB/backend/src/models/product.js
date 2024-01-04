@@ -28,7 +28,6 @@ export const Save = async (product) => {
   try {
     const newProduct = new productModel(toAdd);
     await newProduct.save();
-    console.log("Product saved successfully!");
   } catch (error) {
     console.error("Error saving product:", error);
   }

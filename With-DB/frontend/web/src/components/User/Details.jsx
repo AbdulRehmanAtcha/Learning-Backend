@@ -4,7 +4,6 @@ import { FetchingQueryById, addProductToCart } from "../../hooks/useProductData"
 
 const Details = () => {
   const { id } = useParams();
-  console.log(id);
   const navigate = useNavigate();
 
   const onSuccess = (data) => {
@@ -26,11 +25,10 @@ const Details = () => {
     error: queryErrorMsg,
   } = FetchingQueryById(id);
 
-  console.log(data?.data);
 
-  // if (querLoading || mutationLoading) {
-  //   return <h2>Loading</h2>;
-  // }
+  if (querLoading || mutationLoading) {
+    return <h2>Loading</h2>;
+  }
   // if (querError || useMutationError) {
   //   return <h1>{queryErrorMsg}</h1>;
   // }

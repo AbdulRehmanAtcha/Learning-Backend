@@ -22,7 +22,6 @@ const Register = () => {
       email: "",
       password: "",
     });
-    console.log(data)
   };
 
   const { mutate, data: mutateData } = AddUserMutation(onSuccess);

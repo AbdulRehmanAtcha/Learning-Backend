@@ -34,9 +34,11 @@ const DeleteCartItemFunc = async (product) => {
 };
 
 const AddProduct = async (product) => {
-  return await axios.post(`${baseURL}/api/v1/addToCart`, {
-    product,
-  });
+  const payload = {
+    ...product,
+    quantity: 1,
+  };
+  return await axios.post(`${baseURL}/api/v1/addToCart`, payload)
 };
 
 const EditProduct = async (product) => {

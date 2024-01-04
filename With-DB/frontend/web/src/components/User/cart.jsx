@@ -14,16 +14,15 @@ const MyCart = () => {
     error: queryErrorMsg,
     refetch,
   } = FetchingQueryCartItems();
-  console.log(data);
 
   const onSuccess = () => {
     refetch();
   };
 
-  const { mutate } = DeleteCartMutation(onSuccess);
+  const { mutate, isLoading: mutateLoading } = DeleteCartMutation(onSuccess);
 
-  if (querLoading) {
-    <h1>Loading...</h1>;
+  if (querLoading || mutateLoading) {
+    return <h1>Loading...</h1>;
   }
   if (querError) {
     <h1>{queryErrorMsg}</h1>;
@@ -39,9 +38,17 @@ const MyCart = () => {
             justifyContent: "center",
             alignItems: "center",
             color: "red",
+            flexDirection: "column",
           }}
         >
-          <h1>Please Add Products first </h1>
+          <h1>Your Cart Is Empty</h1>
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={() => navigate("/all-products")}
+          >
+            Go To Products
+          </button>
         </div>
       ) : (
         <>
@@ -75,15 +82,17 @@ const MyCart = () => {
                 <th scope="col">Id</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Product Price</th>
+                <th scope="col">Product Quantity</th>
                 <th scope="col">Delete Product</th>
               </tr>
             </thead>
             <tbody>
               {data?.data?.cart?.map((eachItem, index) => (
                 <tr key={index}>
-                  <th scope="row">{eachItem?.id}</th>
-                  <td>{eachItem?.productName}</td>
-                  <td>{eachItem?.productPrice}</td>
+                  <th scope="row">{eachItem?._id}</th>
+                  <td>{eachItem?.name}</td>
+                  <td>{eachItem?.price}</td>
+                  <td>({eachItem?.quantity})</td>
                   <td>
                     <button
                       type="button"
