@@ -3,7 +3,6 @@ import { AddUserMutation } from "../../hooks/useUsersData";
 
 const Register = () => {
   const [userData, setUserData] = useState({
-    name: "",
     email: "",
     password: "",
   });
@@ -18,7 +17,6 @@ const Register = () => {
 
   const onSuccess = (data) => {
     setUserData({
-      name: "",
       email: "",
       password: "",
     });
@@ -35,19 +33,6 @@ const Register = () => {
     <>
       <h1>Register Here</h1>
       <form onSubmit={SubmitHandler}>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">
-            Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            name="name"
-            onChange={HandleChange}
-            value={userData.name}
-          />
-        </div>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email

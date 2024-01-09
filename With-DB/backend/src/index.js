@@ -4,6 +4,7 @@ import cors from "cors";
 import { adminRoutes } from "../src/routes/admin.js";
 import bodyParser from "body-parser";
 import userRoutes from "../src/routes/user.js";
+import authRoutes from "../src/routes/auth.js";
 import DBConnectionHandler from "./DB/database.js";
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(
 
 app.use("/admin", adminRoutes);
 app.use("/api/v1", userRoutes);
+app.use("/auth", authRoutes);
 
 app.listen(port, () => {
   console.log("Hello",port);

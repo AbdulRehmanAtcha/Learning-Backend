@@ -4,7 +4,7 @@ import { useMutation } from "react-query";
 const baseURL = "http://localhost:3000";
 
 const AddUserHandler = async (user) => {
-  return await axios.post(`${baseURL}/api/v1/register-user`, user);
+  return await axios.post(`${baseURL}/auth/register-user`, user);
 };
 
 export const AddUserMutation = (onSuccess) => {

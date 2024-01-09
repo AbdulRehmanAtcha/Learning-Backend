@@ -2,9 +2,8 @@ import mongoose from "mongoose";
 import DBConnectionHandler from "../DB/database.js";
 
 const userSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  password: String,
+  email: { type: String, required: true },
+  password: { type: String, required: true },
 });
 
 const userModel = mongoose.model("Users", userSchema);

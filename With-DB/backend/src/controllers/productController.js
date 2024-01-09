@@ -9,7 +9,7 @@ import {
 
 const GetAllProducts = async (req, res) => {
   const products = await FetchAll();
-  res.json({ result: products });
+  res.status(200).json({ result: products });
 };
 
 const GetById = async (req, res) => {

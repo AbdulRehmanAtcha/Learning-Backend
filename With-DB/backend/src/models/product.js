@@ -4,8 +4,8 @@ import DBConnectionHandler from "../DB/database.js";
 const registeredProducts = [];
 
 const productSchema = new mongoose.Schema({
-  title: String,
-  price: Number,
+  title: { type: String, required: true },
+  price: { type: String, required: true },
 });
 
 const productModel = mongoose.model("Products", productSchema);

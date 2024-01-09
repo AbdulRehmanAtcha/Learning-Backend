@@ -21,6 +21,5 @@ router.get("/cartItems", GettingCartItems);
 
 router.post("/delete-cart-item", DeleteCartItemController);
 
-router.post("/register-user", AddUserController)
 
 export default router;
