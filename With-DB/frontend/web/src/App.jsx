@@ -8,8 +8,16 @@ import MyCart from "./components/User/Cart";
 import Details from "./components/User/Details";
 import Edit from "./components/Admin/Edit";
 import Register from "./components/User/Register";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [login, setLogin] = useState(false);
+  useEffect(() => {
+    const cookie = document.cookie.split("=")[1];
+    if (cookie) {
+      setLogin(true);
+    }
+  }, []);
   return (
     <>
       <nav>
@@ -17,21 +25,27 @@ function App() {
           <li>
             <NavLink to={"/"}>Home</NavLink>
           </li>
-          {/* <li>
-            <Link to={"/add"}>Add Product</Link>
-          </li> */}
           <li>
             <NavLink to={"/all-products"}>Uesr All Products</NavLink>
           </li>
-          {/* <li>
-            <Link to={"/admin-products"}>Admin All Products</Link>
-          </li> */}
+          {login ? (
+            <>
+              <li>
+                <Link to={"/add"}>Add Product</Link>
+              </li>
+              <li>
+                <Link to={"/admin-products"}>Admin All Products</Link>
+              </li>
+            </>
+          ) : null}
           <li>
             <NavLink to={"/cart"}>Cart</NavLink>
           </li>
         </ul>
         <ul>
-          <li><NavLink to={"/register"}>Login</NavLink></li>
+          <li>
+            <NavLink to={"/register"}>Login</NavLink>
+          </li>
         </ul>
       </nav>
       <br />
@@ -44,7 +58,7 @@ function App() {
         <Route path="/admin-products" element={<AdminView />} />
         <Route path="/edit-product/:id" element={<Edit />} />
         <Route path="/cart" element={<MyCart />} />
-        <Route path='/product-details/:id' element={<Details />} />
+        <Route path="/product-details/:id" element={<Details />} />
       </Routes>
     </>
   );
