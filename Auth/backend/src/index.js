@@ -9,7 +9,7 @@ dotenv.config({ path: "./env" });
 DBConnectionHandler()
 .then(()=>{
   app.listen(process.env.PORT || 8000, ()=>{
-    console.log("Server Started At: ", process.env.PORT)
+    console.log("Server Started At:", process.env.PORT)
   })
 })
 .catch((err)=>{
