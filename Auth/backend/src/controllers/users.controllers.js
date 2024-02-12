@@ -5,15 +5,14 @@ import { CloudinaryUploader } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 export const registerUser = asyncHandler(async (req, res) => {
-    console.log(req.body)
     const { fullName, username, email, password } = req.body
     if ([fullName, username, email, password].some((field) => field?.trim() === "")) {
         throw new ApiError(400, "All Fields Are Required")
     }
-    const emailExist = UserModel.findOne({ email })
-
-    const usernameExist = UserModel.findOne({ username })
-
+    const emailExist = await UserModel.findOne({ email })
+    
+    const usernameExist = await UserModel.findOne({ username })
+    
     if (emailExist) {
         throw new ApiError(409, "Email aalready registered")
     }
@@ -23,7 +22,6 @@ export const registerUser = asyncHandler(async (req, res) => {
     }
 
     const avatarLocalPath = req.files?.avatar[0]?.path
-    console.log(avatarLocalPath)
 
     if (!avatarLocalPath) {
         throw new ApiError(400, "Avatar is required")

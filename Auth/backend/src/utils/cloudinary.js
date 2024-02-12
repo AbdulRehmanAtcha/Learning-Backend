@@ -13,7 +13,7 @@ const CloudinaryUploader = async (imgPath) => {
         const response = await cloudinary.uploader.upload(imgPath, {
             resource_type: "image"
         })
-        console.log("File Uploaded", response.url)
+        fs.unlinkSync(imgPath)
         return response
     } catch (error) {
         fs.unlinkSync(imgPath)
