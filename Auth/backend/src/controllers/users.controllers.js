@@ -10,9 +10,9 @@ export const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(400, "All Fields Are Required")
     }
     const emailExist = await UserModel.findOne({ email })
-    
+
     const usernameExist = await UserModel.findOne({ username })
-    
+
     if (emailExist) {
         throw new ApiError(409, "Email aalready registered")
     }
@@ -53,4 +53,15 @@ export const registerUser = asyncHandler(async (req, res) => {
         new ApiResponse(200, checkingUserCreated, "User Registered Successfully")
     )
 
+})
+
+
+
+export const loginUser = asyncHandler(async (req, res) => {
+    const { username, email, password } = req.body
+
+    if (!username || !password) {
+        throw new ApiError(400, "All fields are required")
+    }
+    
 })
