@@ -4,6 +4,8 @@ import { uploadImage } from "../middleware/multer.middleware.js"
 import { VerifyingUser } from "../middleware/auth.middleware.js"
 const router = Router()
 
+router.route("/login").post(LoginUser)
+
 router.route("/register").post(
     uploadImage.fields([
         {
@@ -13,7 +15,8 @@ router.route("/register").post(
     ])
     , RegisterUser)
 
-router.route("/login").post(LoginUser)
+
+
 router.route("/logout").post(VerifyingUser, LogoutUser)
 
 export default router

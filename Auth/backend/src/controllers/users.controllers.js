@@ -75,11 +75,12 @@ export const RegisterUser = asyncHandler(async (req, res) => {
 export const LoginUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body
 
-    if ((!username && !email) || !password) {
+
+    if (!email || !password) {
         throw new ApiError(400, "All fields are required")
     }
 
-    const checkingUser = await UserModel.findOne({ $or: [{ username }, { email }] })
+    const checkingUser = await UserModel.findOne({ email: email })
 
     if (!checkingUser) {
         throw new ApiError(404, "User not exist")
@@ -88,7 +89,7 @@ export const LoginUser = asyncHandler(async (req, res) => {
     const passwordMatching = await checkingUser.isPasswordCorrect(password)
 
     if (!passwordMatching) {
-        throw new ApiError(404, "User not exist")
+        throw new ApiError(401, "User not exist")
 
     }
 
@@ -111,5 +112,5 @@ export const LogoutUser = asyncHandler(async (req, res) => {
         httpOnly: true,
         secure: true
     }
-    return res.status(200).clearCookie("accessToken", tokenOptions).clearCookie("refreshToken",tokenOptions).json(200,{},"User Logout Successful")
+    return res.status(200).clearCookie("accessToken", tokenOptions).clearCookie("refreshToken", tokenOptions).json(new ApiResponse(200, {}, "Logout Success"))
 })
