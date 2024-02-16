@@ -123,25 +123,86 @@ export const TokenRefresher = asyncHandler(async (req, res) => {
         throw new ApiError(401, "Token Not Found")
     }
     try {
-    const decodedData = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET)
-    const getUser = await UserModel.findById(decodedData._id)
+        const decodedData = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET)
+        const getUser = await UserModel.findById(decodedData._id)
+        if (!getUser) {
+            throw new ApiError(401, "Invalid Token")
+        }
+        if (token !== getUser.refreshToken) {
+            throw new ApiError(401, "Token is used or Expired")
+        }
+
+        const tokenOptions = {
+            httpOnly: true,
+            secure: true
+        }
+
+        const { refreshToken, accessToken } = GenerateTokens(getUser._id)
+
+        return res.status(200).cookie("accessToken", accessToken, tokenOptions).cookie("refreshToken", refreshToken, tokenOptions).json(new ApiResponse(200, { accessToken, refreshToken }, "Token Refreshed"))
+    } catch (error) {
+        throw new ApiError(400, "Error In Token Refreshing")
+    }
+
+})
+
+export const ChangePassword = asyncHandler(async (req, res) => {
+    const { oldPassword, newPassword } = req.body
+    const user = req.user
+    const getUser = await UserModel.findById(user._id)
     if (!getUser) {
-        throw new ApiError(401, "Invalid Token")
+        return new ApiError(400, "User not found")
     }
-    if (token !== getUser.refreshToken) {
-        throw new ApiError(401, "Token is used or Expired")
+    const checkPassword = await getUser.isPasswordCorrect(oldPassword)
+    if (!checkPassword) {
+        throw new ApiError(400, "Old password not matched")
     }
+    getUser.password = newPassword
+    await getUser.save({ validateBeforeSave: false })
 
     const tokenOptions = {
         httpOnly: true,
         secure: true
     }
 
-    const { refreshToken, accessToken } = GenerateTokens(getUser._id)
+    return res.status(200).clearCookie("accessToken", tokenOptions).clearCookie("refreshToken", tokenOptions).json(new ApiResponse(200, {}, "Password changed successfully"))
+})
 
-    return res.status(200).cookie("accessToken", accessToken, tokenOptions).cookie("refreshToken", refreshToken, tokenOptions).json(new ApiResponse(200, { accessToken, refreshToken }, "Token Refreshed"))
-    } catch (error) {
-        throw new ApiError(400, "Error In Token Refreshing")
+export const UpdateProfile = asyncHandler(async (req, res) => {
+
+    // DONE: Authorize by middlleware
+    // DONE: Get user from middleware
+    // DONE: Check for middleware's user in DB
+    // DONE: Check for which if updation is needed
+    // DONE: If updation is not needed in both keys then return with "Updated"
+    // DONE: Else check for if new username present in DB
+    // DONE: If present then retuned already present
+    // DONE: Else update both and save the user
+
+    const { fullName, username } = req.body
+    const user = req.user
+
+    if (!user) {
+        throw new ApiError(400, "Unauthorized Request")
     }
 
+    const checkUser = await UserModel.findById(user?._id)
+    if (!checkUser) {
+        throw new ApiError(400, "No user found")
+    }
+
+    if (checkUser.fullName === fullName && checkUser.username === username) {
+        return res.status(200).json(new ApiResponse(200, "Update successfully"))
+    }
+
+    const usernameCheck = await UserModel.findOne({ username })
+    if (usernameCheck) {
+        throw new ApiError(400, "Username already registered")
+    }
+    checkUser.username = username
+    checkUser.fullName = fullName
+    await checkUser.save({ validateBeforeSave: false })
+
+
+    return res.status(200).json(new ApiResponse(200, {}, "User Updated Success"))
 })
