@@ -182,6 +182,10 @@ export const UpdateProfile = asyncHandler(async (req, res) => {
     const { fullName, username } = req.body
     const user = req.user
 
+    const imgLocalPath = req?.files?.avatar[0]?.path
+    const upload = imgLocalPath !== undefined ? await CloudinaryUploader(imgLocalPath) : null
+    console.log(imgLocalPath)
+
     if (!user) {
         throw new ApiError(400, "Unauthorized Request")
     }
@@ -201,6 +205,13 @@ export const UpdateProfile = asyncHandler(async (req, res) => {
     }
     checkUser.username = username
     checkUser.fullName = fullName
+    checkUser.avatar = upload?.url ? upload?.url : user?.avatar
+    // if (upload !== undefined || upload !== null) {
+    //     checkUser.avatar = upload?.url
+    // }
+    // else {
+    //     checkUser.avatar = user?.avatar
+    // }
     await checkUser.save({ validateBeforeSave: false })
 
 

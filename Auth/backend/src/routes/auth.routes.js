@@ -20,6 +20,11 @@ router.route("/register").post(
 router.route("/logout").post(VerifyingUser, LogoutUser)
 router.route("/refresh-token").post(TokenRefresher)
 router.route("/change-password").post(VerifyingUser, ChangePassword)
-router.route("/update-profile").post(VerifyingUser, UpdateProfile)
+router.route("/update-profile").post(VerifyingUser, uploadImage.fields([
+    {
+        name: "avatar",
+        maxCount: 1
+    }
+]), UpdateProfile)
 
 export default router
