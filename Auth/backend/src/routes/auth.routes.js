@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { ChangePassword, LoginUser, LogoutUser, RegisterUser, TokenRefresher, UpdateProfile } from "../controllers/users.controllers.js"
+import { ChangePassword, FetchProfile, LoginUser, LogoutUser, RegisterUser, TokenRefresher, UpdateProfile } from "../controllers/users.controllers.js"
 import { uploadImage } from "../middleware/multer.middleware.js"
 import { VerifyingUser } from "../middleware/auth.middleware.js"
 const router = Router()
@@ -26,5 +26,7 @@ router.route("/update-profile").post(VerifyingUser, uploadImage.fields([
         maxCount: 1
     }
 ]), UpdateProfile)
+
+router.route("/profile").get(VerifyingUser, FetchProfile)
 
 export default router

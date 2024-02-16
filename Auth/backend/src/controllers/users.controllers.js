@@ -170,15 +170,6 @@ export const ChangePassword = asyncHandler(async (req, res) => {
 
 export const UpdateProfile = asyncHandler(async (req, res) => {
 
-    // DONE: Authorize by middlleware
-    // DONE: Get user from middleware
-    // DONE: Check for middleware's user in DB
-    // DONE: Check for which if updation is needed
-    // DONE: If updation is not needed in both keys then return with "Updated"
-    // DONE: Else check for if new username present in DB
-    // DONE: If present then retuned already present
-    // DONE: Else update both and save the user
-
     const { fullName, username } = req.body
     const user = req.user
 
@@ -206,14 +197,17 @@ export const UpdateProfile = asyncHandler(async (req, res) => {
     checkUser.username = username
     checkUser.fullName = fullName
     checkUser.avatar = upload?.url ? upload?.url : user?.avatar
-    // if (upload !== undefined || upload !== null) {
-    //     checkUser.avatar = upload?.url
-    // }
-    // else {
-    //     checkUser.avatar = user?.avatar
-    // }
     await checkUser.save({ validateBeforeSave: false })
 
 
     return res.status(200).json(new ApiResponse(200, {}, "User Updated Success"))
+})
+
+
+export const FetchProfile = asyncHandler(async (req, res) => {
+    const user = req?.user
+    if (!user) {
+        throw new ApiError(400, "Can't Fetch Profile")
+    }
+    return res.status(200).json(new ApiResponse(200, user, "Profile Fetched Successfully"))
 })
