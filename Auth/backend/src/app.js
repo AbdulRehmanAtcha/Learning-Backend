@@ -24,6 +24,8 @@ app.use(bodyParser.json());
 
 // Importing Routes
 import authRouter from "./routes/auth.routes.js";
+import postRoute from "./routes/post.routes.js"
 app.use("/api/v1/auth", authRouter)
+app.use("/api/v1",postRoute)
 
 export { app };
