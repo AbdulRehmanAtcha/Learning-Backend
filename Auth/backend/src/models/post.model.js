@@ -7,10 +7,17 @@ const PostSchema = new Schema({
     },
     postImage: {
         type: String,
+    },
+    ownerId: {
+        type: mongoose.ObjectId
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true
 }
 )
 
-export const ProductModel = mongoose.model("Post", PostSchema)
+export const PostModel = mongoose.model("Post", PostSchema)
