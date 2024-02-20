@@ -13,6 +13,7 @@ router.route("/post").post(VerifyingUser, uploadImage.fields([
 
 router.route("/all-blogs").get(VerifyingUser, GetAllPostsHandler)
 router.route("/search").get(VerifyingUser, SearchPostHandler)
+// TODO: Change route (also in postman) to something else of below route
 router.route("/:id").get(VerifyingUser, GetSinglePost)
 router.route("/user/:id").get(VerifyingUser, GetPostsOfUser)
 router.route("/edit/:id").put(VerifyingUser, EditPostHandler)
