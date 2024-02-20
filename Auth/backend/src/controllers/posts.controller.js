@@ -10,8 +10,10 @@ export const PostHandler = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Post content is required")
     }
     const user = req.user
-    const file = req?.files?.postImage[0]?.path
-    const uploadImage = await CloudinaryUploader(file)
+    // const file = req?.files?.postImage[0]?.path
+    const file = req?.files?.postImage
+
+    const uploadImage = file !== undefined ? await CloudinaryUploader(file[0]?.path) : null
     const post = {
         postContent,
         postImage: uploadImage?.url,
@@ -54,15 +56,16 @@ export const EditPostHandler = asyncHandler(async (req, res) => {
     const user = req.user
     // const post = await PostModel.findById(id)
     const post = await PostModel.find({ $and: [{ _id: id }, { isDeleted: false }] })
+    console.log(post[0].ownerId, "POST")
     if (!post || post.length === 0) {
         throw new ApiError(400, "No post found")
     }
-    if (!post.ownerId.equals(user._id)) {
+    if (!post[0].ownerId.equals(user._id)) {
         throw new ApiError(400, "You can't edit this post")
     }
-    post.postContent = postContent
-    await post.save({ validateBeforeSave: false })
-    return res.status(200).json(new ApiResponse(200, post, "Post edited successfully"))
+    post[0].postContent = postContent
+    await post[0].save({ validateBeforeSave: false })
+    return res.status(200).json(new ApiResponse(200, post[0], "Post edited successfully"))
     // if (user._id !== id) {
     //     throw new ApiError(400, "Unautorized Request")
     // }

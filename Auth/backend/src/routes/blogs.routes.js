@@ -11,9 +11,9 @@ router.route("/post").post(VerifyingUser, uploadImage.fields([
     }
 ]), PostHandler)
 
-router.route("/all-posts").get(VerifyingUser, GetAllPostsHandler)
-router.route("/post/search").get(VerifyingUser, SearchPostHandler)
-router.route("/post/:id").get(VerifyingUser, GetSinglePost)
+router.route("/all-blogs").get(VerifyingUser, GetAllPostsHandler)
+router.route("/search").get(VerifyingUser, SearchPostHandler)
+router.route("/:id").get(VerifyingUser, GetSinglePost)
 router.route("/user/:id").get(VerifyingUser, GetPostsOfUser)
 router.route("/edit/:id").put(VerifyingUser, EditPostHandler)
 router.route("/delete/:id").delete(VerifyingUser, DeletePostHandler)
