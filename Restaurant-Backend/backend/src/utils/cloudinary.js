@@ -12,7 +12,7 @@ const CloudinaryUploader = async (imgPath) => {
         if (!imgPath) return null
         const response = await cloudinary.uploader.upload(imgPath, {
             resource_type: "image",
-            folder:"Learning backend"
+            folder:"Restaurant/Employees"
         })
         fs.unlinkSync(imgPath)
         return response

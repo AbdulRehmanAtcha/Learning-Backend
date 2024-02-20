@@ -28,10 +28,6 @@ const userSchema = new Schema(
       unique: true,
       trim: true,
     },
-    avatar: {
-      type: String,
-      required: true
-    },
     role: {
       type: String,
       required: [true, "Employee role is required"],

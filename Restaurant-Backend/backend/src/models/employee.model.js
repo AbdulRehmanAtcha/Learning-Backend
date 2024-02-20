@@ -28,7 +28,11 @@ const EmployeeSchema = new Schema({
     bankAccount: {
         type: Number,
         trim: true
-    }
+    },    
+    avatar: {
+        type: String,
+        required: true
+      },
 
 }, {
     timestamps: true
