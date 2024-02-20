@@ -10,14 +10,6 @@ const userSchema = new Schema(
       type: String,
       index: true,
     },
-    username: {
-      required: [true, "Username is required"],
-      type: String,
-      unique: true,
-      lowercase: true,
-      index: true,
-      trim: true,
-    },
     email: {
       required: [true, "Email is required"],
       type: String,
@@ -28,10 +20,23 @@ const userSchema = new Schema(
     password: {
       required: [true, "Password is required"],
       type: String,
+      minLength: [3, "Password must be atleast 3 characters"]
+    },
+    phone: {
+      type: Number,
+      required: true,
+      unique: true,
+      trim: true,
     },
     avatar: {
       type: String,
       required: true
+    },
+    role: {
+      type: String,
+      required: [true, "Employee role is required"],
+      lowercase: true,
+      minLength: [2, "Employee role must be of 2 characters"]
     },
     refreshToken: {
       type: String,
@@ -48,7 +53,7 @@ userSchema.pre("save", async function (next) {
   next()
 })
 
-userSchema.methods.isPasswordCorrect = async function(password){
+userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password)
 }
 
@@ -79,4 +84,4 @@ userSchema.methods.generateRefreshToken = function () {
   )
 }
 
-export const UserModel = mongoose.model("User", userSchema);
+export const UserModel = mongoose.model("Staff", userSchema);
