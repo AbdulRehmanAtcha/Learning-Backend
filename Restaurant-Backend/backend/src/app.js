@@ -16,14 +16,8 @@ app.use(express.static("public"))
 app.use(cookieParser())
 app.use(bodyParser.json());
 
-
-// app.post("/api/v1/auth/login",(req,res)=>{
-//   console.log(req?.body)
-//   res.status(200).json({message:"Hello"})
-// })
-
 // Importing Routes
-import authRouter from "./routes/auth.routes.js";
-app.use("/api/v1/auth", authRouter)
+import RegisterOwnerRoutes from "./routes/registerOwner.routes.js"
+app.use("/api/v1/owner",RegisterOwnerRoutes)
 
 export { app };
