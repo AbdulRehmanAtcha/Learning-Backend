@@ -52,6 +52,9 @@ ownerSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, 10)
     next()
 })
+ownerSchema.methods.isPasswordCorrect = async function (password) {
+    return await bcrypt.compare(password, this.password)
+}
 
 ownerSchema.methods.generateRefreshToken = function () {
     return (
