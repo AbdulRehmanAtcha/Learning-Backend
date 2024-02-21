@@ -7,12 +7,12 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const CloudinaryUploader = async (imgPath) => {
+const CloudinaryUploader = async (imgPath,path) => {
     try {
         if (!imgPath) return null
         const response = await cloudinary.uploader.upload(imgPath, {
             resource_type: "image",
-            folder:"Restaurant/Employees"
+            folder:`Restaurant/${path}`
         })
         fs.unlinkSync(imgPath)
         return response

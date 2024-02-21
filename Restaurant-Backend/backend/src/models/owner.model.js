@@ -21,6 +21,10 @@ const ownerSchema = new Schema({
         trim: true,
         lowercase: true
     },
+    avatar: {
+        type: String,
+        required: [true, "Profile image is required"]
+    },
     password: {
         required: [true, "Password is required"],
         type: String,
