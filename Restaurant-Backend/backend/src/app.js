@@ -18,6 +18,8 @@ app.use(bodyParser.json());
 
 // Importing Routes
 import RegisterOwnerRoutes from "./routes/registerOwner.routes.js"
-app.use("/api/v1/owner",RegisterOwnerRoutes)
+import EmployeeRoutes from "./routes/employee.routes.js"
+app.use("/api/v1/owner", RegisterOwnerRoutes)
+app.use("/api/v1/employee", EmployeeRoutes)
 
 export { app };

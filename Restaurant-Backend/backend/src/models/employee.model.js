@@ -27,12 +27,19 @@ const EmployeeSchema = new Schema({
     },
     bankAccount: {
         type: Number,
-        trim: true
-    },    
-    avatar: {
-        type: String,
+        trim: true,
         required: true
-      },
+    },
+    // avatar: {
+    //     type: String,
+    //     required: true
+    // },
+    email: {
+        type: String,
+        required: true,
+        trim: true,
+        lowercase: true
+    }
 
 }, {
     timestamps: true

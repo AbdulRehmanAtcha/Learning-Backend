@@ -18,8 +18,6 @@ export const GenerateTokens = async (id) => {
     }
 }
 
-
-
 export const RegisterOwnerHandler = asyncHandler(async (req, res) => {
     const { fullName, phone, email, password, restaurantName, role } = req.body
     if ([fullName, phone, email, password, restaurantName, role].some((item) => !item || item?.trim() === "")) {
