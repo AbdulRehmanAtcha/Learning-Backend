@@ -1,4 +1,6 @@
 import mongoose, { Schema } from "mongoose"
+import bcrypt from "bcrypt"
+
 
 const ownerSchema = new Schema({
     fullName: {
@@ -22,7 +24,25 @@ const ownerSchema = new Schema({
         required: [true, "Password is required"],
         type: String,
         trim: true
-    }
+    },
+    restaurantName: {
+        required: [true, "Restaurant name is required"],
+        type: String,
+    },
+    role: {
+        required: [true, "Role is required"],
+        type: String,
+        trim: true
+    },
+
+}, {
+    timestamps: true
+})
+
+ownerSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) return next()
+    this.password = await bcrypt.hash(this.password, 10)
+    next()
 })
 
 export const OwnerModel = mongoose.model("Owner", ownerSchema)
