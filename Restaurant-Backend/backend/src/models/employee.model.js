@@ -30,15 +30,19 @@ const EmployeeSchema = new Schema({
         trim: true,
         required: true
     },
-    // avatar: {
-    //     type: String,
-    //     required: true
-    // },
+    avatar: {
+        type: String,
+        // required: true
+    },
     email: {
         type: String,
         required: true,
         trim: true,
         lowercase: true
+    },
+    isRemoved: {
+        type: Boolean,
+        default: false
     }
 
 }, {
