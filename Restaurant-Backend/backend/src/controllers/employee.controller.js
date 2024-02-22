@@ -31,6 +31,11 @@ export const RegisterEmployeeHandler = asyncHandler(async (req, res) => {
 
 export const RemoveEmployeeHandler = asyncHandler(async (req, res) => {
     const { id } = req.params
+    const user = req.user
+    console.log(user, "USER")
+    if (user?.role !== "CEO") {
+        throw new ApiError(401, "Unauthorized request")
+    }
     if (!id) { throw new ApiError(401, "Employee id is required") }
     const employee = await EmployeeModel.findById(id)
     if (!employee) {
@@ -39,5 +44,5 @@ export const RemoveEmployeeHandler = asyncHandler(async (req, res) => {
     employee.isRemoved = !employee.isRemoved
     await employee.save({ validateBeforeSave: false })
     console.log(employee.isRemoved)
-    res.status(200).json(new ApiResponse(200, {}, `Employee ${employee.isRemoved ? "Deleted" : "Restored"} Successfully`))
+    return res.status(200).json(new ApiResponse(200, {}, `Employee ${employee.isRemoved ? "Deleted" : "Restored"} Successfully`))
 })
