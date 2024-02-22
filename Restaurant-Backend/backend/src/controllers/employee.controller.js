@@ -24,7 +24,7 @@ export const RegisterEmployeeHandler = asyncHandler(async (req, res) => {
     if (findEmployee) {
         throw new ApiError(403, "Credentials already registered")
     }
-    const user = { name, role, phone, salary, bankAccount, email, avatar: uploadImage?.url }
+    const user = { name, role, phone, salary, bankAccount, email, avatar: uploadImage?.url, restaurantName: req.user.restaurantName }
     await EmployeeModel.create(user)
     return res.status(200).json(new ApiResponse(200, {}, "Employee Registered Successfully"))
 })

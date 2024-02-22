@@ -16,7 +16,7 @@ const EmployeeSchema = new Schema({
     },
     phone: {
         type: Number,
-        required: true,
+        required: [true, "Phone number is required"],
         unique: true,
         trim: true,
     },
@@ -28,22 +28,26 @@ const EmployeeSchema = new Schema({
     bankAccount: {
         type: Number,
         trim: true,
-        required: true
+        required: [true, "Account number is required"]
     },
     avatar: {
         type: String,
-        // required: true
+        required: [true, "Avatar is required"]
     },
     email: {
         type: String,
-        required: true,
+        required: [true, "Employee Email is Required"],
         trim: true,
         lowercase: true
     },
     isRemoved: {
         type: Boolean,
         default: false
-    }
+    },
+    restaurantName: {
+        required: [true, "Restaurant name is required"],
+        type: String,
+    },
 
 }, {
     timestamps: true
