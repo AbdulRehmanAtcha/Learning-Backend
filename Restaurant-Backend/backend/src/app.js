@@ -17,9 +17,9 @@ app.use(cookieParser())
 app.use(bodyParser.json());
 
 // Importing Routes
-import RegisterOwnerRoutes from "./routes/registerOwner.routes.js"
+import OwnerRoutes from "./routes/owner.routes.js"
 import EmployeeRoutes from "./routes/employee.routes.js"
-app.use("/api/v1/owner", RegisterOwnerRoutes)
+app.use("/api/v1/owner", OwnerRoutes)
 app.use("/api/v1/employee", EmployeeRoutes)
 
 export { app };
