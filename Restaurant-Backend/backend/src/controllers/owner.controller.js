@@ -71,11 +71,3 @@ export const LoginOwnerHandler = asyncHandler(async (req, res) => {
     return res.status(200).cookie("accessToken", accessToken, tokenOption).cookie("refreshToken", refreshToken, tokenOption).json(new ApiResponse(200, response, "Login Successfull"))
 })
 
-export const GetEmployeesHandler = asyncHandler(async (req, res) => {
-    if (req.user.role !== "CEO") {
-        throw new ApiError(401, "Unauthorized request")
-    }
-    const employees = await EmployeeModel.find({ isRemoved: false })
-    console.log(employees)
-    return res.status(200).json(new ApiResponse(200, employees, "Got All Employees"))
-})

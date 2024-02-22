@@ -46,3 +46,11 @@ export const RemoveEmployeeHandler = asyncHandler(async (req, res) => {
     console.log(employee.isRemoved)
     return res.status(200).json(new ApiResponse(200, {}, `Employee ${employee.isRemoved ? "Deleted" : "Restored"} Successfully`))
 })
+
+export const GetEmployeesHandler = asyncHandler(async (req, res) => {
+    if (req.user.role !== "CEO") {
+        throw new ApiError(401, "Unauthorized request")
+    }
+    const employees = await EmployeeModel.find({ isRemoved: false })
+    return res.status(200).json(new ApiResponse(200, employees, "Got All Employees"))
+})
