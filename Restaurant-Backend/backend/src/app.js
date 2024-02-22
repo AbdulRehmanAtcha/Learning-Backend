@@ -19,7 +19,9 @@ app.use(bodyParser.json());
 // Importing Routes
 import OwnerRoutes from "./routes/owner.routes.js"
 import EmployeeRoutes from "./routes/employee.routes.js"
+import LimitedEmployee from "./routes/limitedEmployee.routes.js"
 app.use("/api/v1/owner", OwnerRoutes)
 app.use("/api/v1/employee", EmployeeRoutes)
+app.use("/api/v1/limitedEmployee", LimitedEmployee)
 
 export { app };
