@@ -41,6 +41,40 @@ export const SignupHandler = asyncHandler(async (req, res) => {
 
     const employee = { fullName, email, password, phone: matchEmail.phone, role: matchEmail.role, avatar: matchEmail.avatar }
     await StaffModel.create(employee)
-    console.log(matchEmail)
     return res.status(200).json(new ApiResponse(200, {}, "Employee Signup successfull"))
+})
+
+export const LoginHandler = asyncHandler(async (req, res) => {
+    const { email, password } = req.body
+    if ([email, password].some((item) => !item || item.trim() === "")) {
+        throw new ApiError(401, "All fields are reuired")
+    }
+    const user = await StaffModel.findOne({ email })
+    if (!user) {
+        throw new ApiError(401, "Incorrect email or password")
+    }
+
+    const passwordMatch = await user.isPasswordCorrect(password)
+    if (!passwordMatch) {
+        throw new ApiError(401, "Incorrect email or password")
+    }
+
+    const { accessToken, refreshToken } = await GenerateTokens(user._id)
+    const tokenOption = {
+        httpOnly: true,
+        secure: true
+    }
+    return res.status(200).cookie("accessToken", accessToken, tokenOption).cookie("refreshToken", refreshToken, tokenOption).json(new ApiResponse(200, {}, "Login Successfull"))
+})
+
+export const LogoutHandler = asyncHandler(async (req, res) => {
+    if (!req.user) {
+        throw new ApiError(200, "Unautorized request")
+    }
+    await StaffModel.findByIdAndUpdate(req.user?._id, { $set: { refreshToken: undefined } }, { new: true })
+    const tokenOption = {
+        httpOnly: true,
+        secure: true
+    }
+    return res.status(200).clearCookie("accessToken", tokenOption).clearCookie("refreshToken", tokenOption).json(new ApiResponse(200, {}, "Logout Successfully"))
 })
